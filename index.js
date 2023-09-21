@@ -1,16 +1,9 @@
-require('dotenv').config();
-
 const request = require("request")
 const request_promise = require('request-promise-native').defaults({
     encoding: 'base64'
 })
 
-
-
-
-const test = false
-var user_file = ""
-var fileStringified = "";
+require('dotenv').config();
 const OCR_KEY = process.env.OCR_KEY
 
 /**
@@ -41,7 +34,7 @@ async function imageProcessing(img_url, convert_image=false)  {
 
                     ],
                     imageContext: {
-                        languageHints: ['en-t-i0-handwrit'],
+                        // languageHints: ['en-t-i0-handwrit'],
                     },
                 }, ],
             }),

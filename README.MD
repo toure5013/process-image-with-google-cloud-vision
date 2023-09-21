@@ -1,19 +1,22 @@
-#### Type de fonctionnalité ##### 
-
-CROP_HINTS 	Suggère des sommets pour cadrer une zone d'une image.
-DOCUMENT_TEXT_DETECTION 	Exécute la reconnaissance optique de caractères (OCR) sur des images de texte dense, telles que des documents (PDF/TIFF) et des images contenant du texte manuscrit. TEXT_DETECTION peut être utilisé pour les images de texte épars. Prioritaire lorsque DOCUMENT_TEXT_DETECTION et TEXT_DETECTION sont présents.
-FACE_DETECTION 	Détecte les visages dans l'image.
-IMAGE_PROPERTIES 	Calcule un ensemble de propriétés d'image, telles que les couleurs dominantes de l'image.
-LABEL_DETECTION 	Ajoute des libellés en fonction du contenu de l'image.
-LANDMARK_DETECTION 	Détecte les points de repères géographiques dans l'image.
-LOGO_DETECTION 	Détecte les logos d'entreprise dans l'image.
-OBJECT_LOCALIZATION 	Détecte et extrait plusieurs objets dans une image.
-SAFE_SEARCH_DETECTION 	Exécute des requêtes SafeSearch pour détecter du contenu potentiellement dangereux ou indésirable.
-TEXT_DETECTION 	Effectue une reconnaissance optique des caractères (OCR) sur le texte de l'image. La détection de texte est optimisée pour les zones de texte épars dans une image plus grande. Si l'image est un document au format PDF ou TIFF au texte dense, ou s'il contient du texte manuscrit, utilisez plutôt DOCUMENT_TEXT_DETECTION.
-WEB_DETECTION 	Détectez des entités thématiques, telles que des actualités, des événements ou des célébrités dans l'image, et trouvez des images similaires sur le Web grâce à la puissance de la recherche d'images Google. 
+## Type de fonctionnalité 
 
 
-###### API CALL ######
+- <b>CROP_HINTS</b> 	Suggère des sommets pour cadrer une zone d'une image.
+- <b>DOCUMENT_TEXT_DETECTION</b> 	Exécute la reconnaissance optique de caractères (OCR) sur des images de texte dense, telles que des documents (PDF/TIFF) et des images contenant du texte manuscrit. 
+- <b>TEXT_DETECTION</b> peut être utilisé pour les images de texte épars. Prioritaire lorsque DOCUMENT_TEXT_DETECTION et TEXT_DETECTION sont présents.
+- <b>FACE_DETECTION</b> 	Détecte les visages dans l'image.
+- <b>IMAGE_PROPERTIES</b> 	Calcule un ensemble de propriétés d'image, telles que les couleurs dominantes de l'image.
+- <b>LABEL_DETECTION</b> 	Ajoute des libellés en fonction du contenu de l'image.
+- <b>LANDMARK_DETECTION</b> 	Détecte les points de repères géographiques dans l'image.
+- LOGO_DETECTION 	Détecte les logos d'entreprise dans l'image.
+- <b>OBJECT_LOCALIZATION</b> 	Détecte et extrait plusieurs objets dans une image.
+- <b>SAFE_SEARCH_DETECTION</b> 	Exécute des requêtes SafeSearch pour détecter du contenu potentiellement dangereux ou indésirable.
+- <b>TEXT_DETECTION</b> 	Effectue une reconnaissance optique des caractères (OCR) sur le texte de l'image. La détection de texte est optimisée pour les zones de texte épars dans une image plus grande. Si l'image est un document au format PDF ou TIFF au texte dense, ou s'il contient du texte manuscrit, utilisez plutôt DOCUMENT_TEXT_DETECTION.
+- <b>WEB_DETECTION</b> 	Détectez des entités thématiques, telles que des actualités, des événements ou des célébrités dans l'image, et trouvez des images similaires sur le Web grâce à la puissance de la recherche d'images Google. 
+
+
+### API CALL ######
+```
 https://vision.googleapis.com/v1/images:annotate
 
 {
@@ -73,13 +76,13 @@ https://vision.googleapis.com/v1/images:annotate
     }
   ]
 }
+```
 
 
 
 
-
-####### RETURN EXAMPLE JSON #######
-
+#### RETURN EXAMPLE JSON 
+```js
 const l = {
   "responses": [
     {
@@ -416,10 +419,16 @@ const l = {
     }
   ]
 }
+```
 
+#### IS Human
+```js
 console.log(l.responses[0]?.faceAnnotations[0]?.detectionConfidence)
 if(l.responses[0]?.faceAnnotations[0]?.detectionConfidence > 0.6){
     console.log(`Face detected with ${l.responses.detectionConfidence} % of confidence. It's a human ! :👳`);
 }
+```
 
 
+#### RETURN EXAMPLE JSON
+![Alt text](image.png)

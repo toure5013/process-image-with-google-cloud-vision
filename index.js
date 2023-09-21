@@ -46,7 +46,7 @@ async function imageProcessing(img_url, convert_image=false)  {
                 //Une erreur est survenue
                 console.log('OCR error')
                 console.log(error)
-                return
+                return false;
             }
 
             console.log(response.body)
@@ -55,13 +55,18 @@ async function imageProcessing(img_url, convert_image=false)  {
                 //console.log(response.body)
                 let body = JSON.parse(response.body)
                 console.log(body);
-                // let userCardText = body.responses[0]
+                console.log(body.responses[0]?.faceAnnotations[0]?.detectionConfidence)
+                if(body.responses[0]?.faceAnnotations[0]?.detectionConfidence > 0.6){
+                    console.log(`Face detected with ${body.responses[0]?.faceAnnotations[0]?.detectionConfidence} % of confidence. It's a human ! :👳`);
+                    return true;
+                }
+                
 
             } else {
                 console.log({
-                    "text": `Oups, il semble que nous n'avons pas été capable de dectecter les informations de votre carte. Veuillez fourni une autre capture de la face arrière s'il vous plait (3).`
+                    "text": `Oups! Une erreur est survenue. ${img_url}`
                 })
-
+                return false;
             }
         })
 
@@ -69,9 +74,10 @@ async function imageProcessing(img_url, convert_image=false)  {
         console.log(e)
         console.log({
             //"text": `une erreur s'est produite, veuillez réessayer s'il vous plait !`
-            "text": `Oups, il semble que nous n'avons pas été capable de dectecter les informations de votre carte. Veuillez fourni une autre capture de la face arrière s'il vous plait (3). ${img_url}`
+            "text": `Oups! Une erreur est survenue. ${img_url}`
 
         })
+        return false;
     }
 }
 

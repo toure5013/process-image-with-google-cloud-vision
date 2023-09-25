@@ -14,7 +14,7 @@ const OCR_KEY = process.env.OCR_KEY
 
 async function imageProcessing(img_url, convert_image = false, logbody=false) {
 
-    var options = {
+    let options = {
         method: 'POST',
         url: `https://vision.googleapis.com/v1/images:annotate?key=${OCR_KEY}`,
         headers: {
@@ -113,10 +113,10 @@ async function imageProcessing(img_url, convert_image = false, logbody=false) {
 --------------------------------- ------------------ ------------------ ------------------ --- */
 
 //Exemple with cdn - url
-// var _img_url = "https://cdn-2.messaging.cm.com/fileproxy/files/938181979b6a486dae0d5a52fb2a299f";
+// let _img_url = "https://cdn-2.messaging.cm.com/fileproxy/files/938181979b6a486dae0d5a52fb2a299f";
 // imageProcessing(_img_url, false) // Without convertion work fine on cdn image
 
 
 //Exemple with others
-var _img_url1 = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
+let _img_url1 = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
 imageProcessing(_img_url1, true) // Without convertion work fine on cdn image

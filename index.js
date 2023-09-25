@@ -110,4 +110,4 @@ async function imageProcessing(img_url, convert_image = false) {
 
 --------------------------------- ------------------ ------------------ ------------------ --- */
 var _img_url = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
-imageProcessing(_img_url1, false)
+imageProcessing(_img_url, false)

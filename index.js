@@ -48,8 +48,7 @@ async function imageProcessing(img_url, convert_image = false, logbody=false) {
 
             body: JSON.stringify({
                 requests: [{
-                        image: convert_image ? {content: data } : {source: {imageUri: img_url,content: data},
-                    },
+                        image: {content: data } ,
                     features: [{
                             "maxResults": 50,
                             "type": "FACE_DETECTION"
@@ -114,8 +113,8 @@ async function imageProcessing(img_url, convert_image = false, logbody=false) {
 --------------------------------- ------------------ ------------------ ------------------ --- */
 
 //Exemple with cdn - url
-var _img_url = "https://cdn-2.messaging.cm.com/fileproxy/files/938181979b6a486dae0d5a52fb2a299f";
-imageProcessing(_img_url, false) // Without convertion work fine on cdn image
+// var _img_url = "https://cdn-2.messaging.cm.com/fileproxy/files/938181979b6a486dae0d5a52fb2a299f";
+// imageProcessing(_img_url, false) // Without convertion work fine on cdn image
 
 
 //Exemple with others

@@ -109,6 +109,5 @@ async function imageProcessing(img_url, convert_image = false) {
 /* --------------------------------- ------------------ ------------------ ------------------ ---
 
 --------------------------------- ------------------ ------------------ ------------------ --- */
-// var _img_url = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
-var _img_url1 = "https://cdn-1.messaging.cm.com/fileproxy/files/4ab76d7df05549ecb4ca08c9c6ebf4b8";
+var _img_url = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
 imageProcessing(_img_url1, false)

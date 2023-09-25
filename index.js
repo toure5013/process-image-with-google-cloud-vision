@@ -14,10 +14,7 @@ const OCR_KEY = process.env.OCR_KEY
 
 async function imageProcessing(img_url, convert_image = false) {
 
-    const data = convert_image ? await request_promise(img_url) : img_url
-
-
-    var options = convert_image ? {
+    var options = {
         method: 'POST',
         url: `https://vision.googleapis.com/v1/images:annotate?key=${OCR_KEY}`,
         headers: {
@@ -38,32 +35,37 @@ async function imageProcessing(img_url, convert_image = false) {
                 },
             },],
         }),
-    } : {
-        method: 'POST',
-        url: `https://vision.googleapis.com/v1/images:annotate?key=${OCR_KEY}`,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            requests: [{
-                image: { content: data },
-                features: [{
-                    "maxResults": 50,
-                    "type": "FACE_DETECTION"
-                },
-
-                ],
-                imageContext: {
-                    // languageHints: ['en-t-i0-handwrit'],
-                },
-            },],
-        }),
     };
 
+    if(convert_image){
+        const data = convert_image ? await request_promise(img_url) : img_url
+        options = {
+            method: 'POST',
+            url: `https://vision.googleapis.com/v1/images:annotate?key=${OCR_KEY}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
 
+            body: JSON.stringify({
+                requests: [{
+                        image: convert_image ? {content: data } : {source: {imageUri: img_url,content: data},
+                    },
+                    features: [{
+                            "maxResults": 50,
+                            "type": "FACE_DETECTION"
+                        },
+
+                    ],
+                    imageContext: {
+                        // languageHints: ['en-t-i0-handwrit'],
+                    },
+                }, ],
+            }),
+        }
+
+    }
 
     try {
-
         request(options, function (error, response) {
             if (error) {
                 //Une erreur est survenue
@@ -107,7 +109,6 @@ async function imageProcessing(img_url, convert_image = false) {
 /* --------------------------------- ------------------ ------------------ ------------------ ---
 
 --------------------------------- ------------------ ------------------ ------------------ --- */
-
-var _img_url = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
+// var _img_url = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
 var _img_url1 = "https://cdn-1.messaging.cm.com/fileproxy/files/4ab76d7df05549ecb4ca08c9c6ebf4b8";
-imageProcessing(_img_url1, true)
+imageProcessing(_img_url1, false)

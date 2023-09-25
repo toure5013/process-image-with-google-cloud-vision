@@ -12,7 +12,7 @@ const OCR_KEY = process.env.OCR_KEY
  * @param {*} _algorithme_type : [String, String , String]
  */
 
-async function imageProcessing(img_url, convert_image = false) {
+async function imageProcessing(img_url, convert_image = false, logbody=false) {
 
     var options = {
         method: 'POST',
@@ -74,7 +74,10 @@ async function imageProcessing(img_url, convert_image = false) {
                 return false;
             }
 
-            console.log(response.body)
+            if(logbody){
+                console.log(response.body)
+            }
+
 
             if (response.statusCode == 200) {
                 //console.log(response.body)
@@ -109,5 +112,12 @@ async function imageProcessing(img_url, convert_image = false) {
 /* --------------------------------- ------------------ ------------------ ------------------ ---
 
 --------------------------------- ------------------ ------------------ ------------------ --- */
-var _img_url = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
-imageProcessing(_img_url, false)
+
+//Exemple with cdn - url
+var _img_url = "https://cdn-2.messaging.cm.com/fileproxy/files/938181979b6a486dae0d5a52fb2a299f";
+imageProcessing(_img_url, false) // Without convertion work fine on cdn image
+
+
+//Exemple with others
+var _img_url1 = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
+imageProcessing(_img_url1, true) // Without convertion work fine on cdn image

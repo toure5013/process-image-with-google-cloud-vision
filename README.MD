@@ -432,7 +432,7 @@ if(l.responses[0]?.faceAnnotations[0]?.detectionConfidence > 0.6){
 
 #### RETURN EXAMPLE JSON
 ![Alt text](image.png)
-
+![Alt text](image-1.png)
 
 | Auteur |
 |:--------------|

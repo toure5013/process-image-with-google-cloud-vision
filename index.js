@@ -12,34 +12,57 @@ const OCR_KEY = process.env.OCR_KEY
  * @param {*} _algorithme_type : [String, String , String]
  */
 
-async function imageProcessing(img_url, convert_image=false)  {
+async function imageProcessing(img_url, convert_image = false) {
+
     const data = convert_image ? await request_promise(img_url) : img_url
+
+
+    var options = convert_image ? {
+        method: 'POST',
+        url: `https://vision.googleapis.com/v1/images:annotate?key=${OCR_KEY}`,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            requests: [{
+                image: {
+                    source: {
+                        imageUri: img_url,
+                    },
+                },
+                features: [{
+                    type: 'FACE_DETECTION',
+                },],
+                imageContext: {
+                    languageHints: ['en-t-i0-handwrit'],
+                },
+            },],
+        }),
+    } : {
+        method: 'POST',
+        url: `https://vision.googleapis.com/v1/images:annotate?key=${OCR_KEY}`,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            requests: [{
+                image: { content: data },
+                features: [{
+                    "maxResults": 50,
+                    "type": "FACE_DETECTION"
+                },
+
+                ],
+                imageContext: {
+                    // languageHints: ['en-t-i0-handwrit'],
+                },
+            },],
+        }),
+    };
+
+
+
     try {
-
-        var options = {
-            method: 'POST',
-            url: `https://vision.googleapis.com/v1/images:annotate?key=${OCR_KEY}`,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-
-            body: JSON.stringify({
-                requests: [{
-                        image: convert_image ? {content: data } : {source: {imageUri: img_url,content: data},
-                    },
-                    features: [{
-                            "maxResults": 50,
-                            "type": "FACE_DETECTION"
-                        },
-
-                    ],
-                    imageContext: {
-                        // languageHints: ['en-t-i0-handwrit'],
-                    },
-                }, ],
-            }),
-        }
-
 
         request(options, function (error, response) {
             if (error) {
@@ -56,11 +79,11 @@ async function imageProcessing(img_url, convert_image=false)  {
                 let body = JSON.parse(response.body)
                 console.log(body);
                 console.log(body.responses[0]?.faceAnnotations[0]?.detectionConfidence)
-                if(body.responses[0]?.faceAnnotations[0]?.detectionConfidence > 0.6){
+                if (body.responses[0]?.faceAnnotations[0]?.detectionConfidence > 0.6) {
                     console.log(`Face detected with ${body.responses[0]?.faceAnnotations[0]?.detectionConfidence} % of confidence. It's a human ! :👳`);
                     return true;
                 }
-                
+
 
             } else {
                 console.log({
@@ -86,4 +109,5 @@ async function imageProcessing(img_url, convert_image=false)  {
 --------------------------------- ------------------ ------------------ ------------------ --- */
 
 var _img_url = "https://i.ibb.co/tYNpZGx/Capture-d-e-cran-2023-09-20-a-13-10-30.png";
-imageProcessing(_img_url, true)
+var _img_url1 = "https://cdn-1.messaging.cm.com/fileproxy/files/4ab76d7df05549ecb4ca08c9c6ebf4b8";
+imageProcessing(_img_url1, true)
